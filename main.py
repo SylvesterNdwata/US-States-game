@@ -34,6 +34,12 @@ while correct:
     while guessed_state in states_list:
         guessed_state = screen.textinput(title="Already Guessed", prompt="You already guessed that state! Try again.").title()
         marking_states(guessed_state)
+    if guessed_state == "Exit":
+        if states != 50:
+            states_to_learn = [state for state in data["state"].values if state not in states_list]
+            new_data = pandas.DataFrame(states_to_learn, columns = ["states_to_learn"])
+            new_data.to_csv("states_to_learn.csv")
+        break
     if guessed_state in data["state"].values and guessed_state not in states_list:
         states_list.append(guessed_state)
         marking_states(guessed_state)
@@ -63,4 +69,3 @@ while correct:
 
 
 
-screen.exitonclick()
